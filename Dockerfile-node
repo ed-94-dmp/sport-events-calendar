@@ -1,0 +1,6 @@
+FROM node:lts-alpine
+RUN yarn global add vue-template-compiler@2.5.21 @vue/cli-service
+
+WORKDIR /usr/src
+
+ENTRYPOINT vue-cli-service serve

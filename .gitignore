@@ -1,5 +1,2 @@
 .DS_Store
 /.idea
-server/.env
-/server/data
-/server/vendor
