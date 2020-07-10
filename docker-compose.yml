@@ -18,7 +18,9 @@ services:
       - mysql
 
   php:
-    image: php:7.4-fpm-alpine
+    build:
+      context: .
+      dockerfile: Dockerfile-php
     container_name: php
     restart: unless-stopped
     volumes:
