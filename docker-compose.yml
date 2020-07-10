@@ -37,7 +37,7 @@ services:
       - "8080:80"
     environment:
       - PMA_ARBITRARY=1
-      - PMA_HOST=${MYSQL_HOST}
+      - PMA_HOST=${DB_HOST}
     restart: unless-stopped
     depends_on:
       - mysql
@@ -49,10 +49,10 @@ services:
     env_file:
       - .env
     environment:
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
     ports:
       - "3306:3306"
     volumes:
