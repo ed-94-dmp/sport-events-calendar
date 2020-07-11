@@ -9,7 +9,12 @@
 </template>
 
 <script>
+  import axios from "axios";
   import HeaderBar from "./components/HeaderBar";
+
+  export const SERVER = axios.create({
+    baseURL: `http://localhost:8000/api`,
+  })
 
   export default {
     name: 'app',
@@ -24,6 +29,7 @@
     --color-white: #FFFFFF;
     --color-ming: #3C6E71;
     --color-jet: #353535;
+    --color-red: #FF0000;
   }
 
   body {

@@ -21,7 +21,7 @@ class EventController {
             ->when($date, function($query) use ($date) {
                 $query->whereDate('datetime', '=', $date);
             })
-            ->paginate(5, ['*'], 'page', $page)
+            ->paginate(10, ['*'], 'page', $page)
             ->toJson();
     }
 }

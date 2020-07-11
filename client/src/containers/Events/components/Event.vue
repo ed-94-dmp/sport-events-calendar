@@ -4,7 +4,7 @@
     <div class="content">
       <span class="title">Anadolu Efes - Zalgiris Kaunas</span>
       <span class="subtitle">Euroleague</span>
-
+      {{event}}
     </div>
   </div>
 </template>
@@ -20,7 +20,6 @@
         type: Object,
       },
     },
-    methods: {},
   }
 </script>
 

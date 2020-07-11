@@ -1,14 +1,24 @@
 <template>
   <div class="pagination">
-    <Btn>
+    <Btn
+      v-if="shouldShowPreviousButton()"
+      @clicked="setCurrentPage(currentPage - 1)"
+    >
       <
     </Btn>
 
-    <Btn v-for="page in 20">
-      {{page}}
+    <Btn
+      v-for="pageNumber in totalPages"
+      :is-active="isActive(pageNumber)"
+      @clicked="setCurrentPage(pageNumber)"
+    >
+      {{pageNumber}}
     </Btn>
 
-    <Btn>
+    <Btn
+      v-if="shouldShowNextButton()"
+      @clicked="setCurrentPage(currentPage + 1)"
+    >
       >
     </Btn>
   </div>
@@ -20,6 +30,30 @@
   export default {
     name: 'pagination',
     components: {Btn},
+    props: {
+      totalPages: {
+        type: Number,
+        default: 0,
+      },
+      currentPage: {
+        type: Number,
+        default: 0,
+      },
+    },
+    methods: {
+      shouldShowPreviousButton: function () {
+        return this.totalPages !== 0 && this.currentPage > 1;
+      },
+      shouldShowNextButton: function () {
+        return this.totalPages !== 0 && this.currentPage + 1 <= this.totalPages;
+      },
+      isActive: function(pageNumber) {
+        return this.currentPage === pageNumber;
+      },
+      setCurrentPage: function(pageNumber) {
+        this.$emit('setCurrentPage', pageNumber)
+      },
+    }
   }
 </script>
 
