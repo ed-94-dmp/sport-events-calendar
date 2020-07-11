@@ -1,10 +1,10 @@
 <template>
-  <nav>
+  <nav class="navigation">
     <ul>
       <li>
-        <router-link to="/404">Nav 1</router-link>
-        <router-link to="/404">Nav 2</router-link>
-        <router-link to="/404">Nav 3</router-link>
+        <router-link to="/news">News</router-link>
+        <router-link to="/sports">Sports</router-link>
+        <router-link to="/live">Live</router-link>
       </li>
     </ul>
   </nav>
@@ -21,10 +21,10 @@
   }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
+<style scoped>
   ul {
     list-style: none;
+    padding: 0;
   }
 
   a {
@@ -33,5 +33,6 @@
     color: var(--color-white);
     background-color: var(--color-ming);
     border-radius: 4px;
+    font-size: 1rem;
   }
 </style>

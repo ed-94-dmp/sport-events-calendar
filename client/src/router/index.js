@@ -8,8 +8,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Index',
+      name: 'index',
       component: Index
-    }
+    },
+    {
+      path: '/events/date/:year/:month?/:day?',
+      name: 'events',
+      component: Index
+    },
   ]
 })

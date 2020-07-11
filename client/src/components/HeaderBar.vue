@@ -27,7 +27,11 @@
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   }
 
-  header nav {
+  header h1 {
+    font-size: 2rem;
+  }
+
+  header .navigation {
     margin-left: auto;
   }
 </style>

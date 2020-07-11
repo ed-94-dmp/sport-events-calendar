@@ -3,7 +3,7 @@
     <HeaderBar />
 
     <main>
-      <router-view></router-view>
+      <router-view />
     </main>
   </div>
 </template>
@@ -29,22 +29,15 @@
   body {
     margin: 0;
     background-color: var(--color-white);
-  }
-
-  #app {
-    display: grid;
-    grid-gap: 25px;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    font-size: 50%;
   }
 
   main {
-    grid-column: 1 / -1;
-    padding: 20px;
+    padding: 1rem;
   }
 
   header {
-    grid-column: 1 / -1;
-    padding: 20px;
+    padding: 1rem;
     background-color: var(--color-jet);
     color: var(--color-white);
   }

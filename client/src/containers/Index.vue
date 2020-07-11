@@ -1,15 +1,15 @@
 <template>
-  <span>main index stuff</span>
+  <div>
+    <Events />
+  </div>
 </template>
 
 <script>
+  import Events from "./Events/Events";
+
   export default {
     name: 'index',
-    data() {
-      return {
-        headerMessage: 'Sport Events Calendar'
-      }
-    }
+    components: {Events},
   }
 </script>
 
