@@ -6,14 +6,17 @@ use App\Event;
 
 class EventController {
     /**
+     * Returns list of events
      * @param $request
      * @return string
      */
     function index($request) {
+        $params = $request->getParams();
+
+        $date = $params['date'];
+        $page = $params['page'] ?? 1;
+
         $events = new Event();
-
-        [$page, $date] = $request->getParams();
-
         return $events
             ->when($date, function($query) use ($date) {
                 $query->whereDate('datetime', '=', $date);
