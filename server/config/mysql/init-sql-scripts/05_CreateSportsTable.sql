@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS sports (
     thumbnail_image varchar(200),
 
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
-    updated_at timestamp NULL DEFAULT NULL,
+    updated_at timestamp NULL DEFAULT CURRENT_TIMESTAMP,
     deleted_at timestamp NULL DEFAULT NULL,
 
     PRIMARY KEY (id)
