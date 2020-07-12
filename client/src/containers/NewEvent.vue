@@ -171,6 +171,8 @@
         this.competitor2Id = null;
         this.status = null;
         this.datetime = null;
+
+        this.error = null;
       },
     }
   }
