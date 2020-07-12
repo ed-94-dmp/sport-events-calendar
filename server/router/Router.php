@@ -14,10 +14,14 @@ class Router
 
     function __call($name, $args)
     {
-        [$route, $method] = $args;
+        [$route, $method, $validator] = $args;
 
         if (!in_array(strtoupper($name), $this->supportedHttpMethods)) {
             $this->invalidMethodHandler();
+        }
+
+        if ($validator && !(new $validator($this->request))->validate()) {
+            $this->badRequestHandler();
         }
 
         $this->{strtolower($name)}[$this->formatRoute($route)] = $method;
@@ -25,6 +29,7 @@ class Router
 
     /**
      * Removes trailing forward slashes and query parameters from route
+     *
      * @param $route string
      * @return string
      */
@@ -39,14 +44,22 @@ class Router
         return $result;
     }
 
+    private function badRequestHandler()
+    {
+        header("{$this->request->serverProtocol} 400 Bad Request");
+        die;
+    }
+
     private function invalidMethodHandler()
     {
         header("{$this->request->serverProtocol} 405 Method Not Allowed");
+        die;
     }
 
     private function defaultRequestHandler()
     {
         header("{$this->request->serverProtocol} 404 Not Found");
+        die;
     }
 
     /**

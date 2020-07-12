@@ -8,8 +8,9 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
-            "App\\Controllers\\Api\\V1": "app/controllers/api/v1",
-            "Router\\": "router/"
+            "App\\Controllers\\Api\\V1\\": "app/controllers/api/v1/",
+            "Router\\": "router/",
+            "Validator\\": "validator/"
         }
     }
 }
