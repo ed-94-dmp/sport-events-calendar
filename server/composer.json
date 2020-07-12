@@ -3,7 +3,8 @@
         "illuminate/database": "^7.19",
         "phpoption/phpoption": "^1.7",
         "symfony/dotenv": "^5.0",
-        "illuminate/pagination": "^7.19"
+        "illuminate/pagination": "^7.19",
+        "ramsey/uuid": "^4.0"
     },
     "autoload": {
         "psr-4": {

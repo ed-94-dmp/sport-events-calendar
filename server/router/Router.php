@@ -5,7 +5,9 @@ namespace Router;
 class Router
 {
     private $request;
-    private $supportedHttpMethods = ["GET"];
+    private $supportedHttpMethods = ['GET', 'POST'];
+
+    private $validators = [];
 
     function __construct($request)
     {
@@ -20,11 +22,11 @@ class Router
             $this->invalidMethodHandler();
         }
 
-        if ($validator && !(new $validator($this->request))->validate()) {
-            $this->badRequestHandler();
-        }
-
         $this->{strtolower($name)}[$this->formatRoute($route)] = $method;
+
+        if($validator) {
+            $this->validators[strtolower($name)][$this->formatRoute($route)] = $validator;
+        }
     }
 
     /**
@@ -68,16 +70,25 @@ class Router
      */
     function resolve()
     {
-        $methodDictionary = $this->{strtolower($this->request->requestMethod)};
+        $requestMethod = strtolower($this->request->requestMethod);
         $formattedRoute = $this->formatRoute($this->request->requestUri);
-        $method = $methodDictionary[$formattedRoute];
 
-        if (is_null($method)) {
-            $this->defaultRequestHandler();
-            return;
+        $methodDictionary = $this->{$requestMethod};
+        $validatorDictionary = $this->validators[$requestMethod];
+
+        $method = $methodDictionary[$formattedRoute];
+        $validator = $validatorDictionary[$formattedRoute];
+
+
+      if ($validator && !(new $validator($this->request))->validate()) {
+            $this->badRequestHandler();
         }
 
-        echo call_user_func_array($method, [$this->request]);
+//        try {
+            echo call_user_func_array($method, [$this->request]);
+//        } catch (\Exception $e) {
+//            $this->defaultRequestHandler();
+//        }
     }
 
     function __destruct()

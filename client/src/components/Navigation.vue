@@ -1,11 +1,12 @@
 <template>
   <nav class="navigation">
     <ul>
-      <li>
-        <router-link to="/news">News</router-link>
-        <router-link to="/sports">Sports</router-link>
-        <router-link to="/live">Live</router-link>
-      </li>
+      <li><router-link to="/">Events</router-link></li>
+      <li><router-link to="/news">News</router-link></li>
+      <li><router-link to="/sports">Sports</router-link></li>
+      <li><router-link to="/live">Live</router-link></li>
+      <li>-</li>
+      <li><router-link to="/new-event">New Event</router-link></li>
     </ul>
   </nav>
 </template>
@@ -13,18 +14,19 @@
 <script>
   export default {
     name: 'navigation',
-    data() {
-      return {
-        headerMessage: 'Sport Events Calendar'
-      }
-    }
   }
 </script>
 
 <style scoped>
   ul {
+    display: flex;
     list-style: none;
     padding: 0;
+    align-items: center;
+  }
+
+  ul li {
+    margin: 0 0.2rem;
   }
 
   a {

@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <HeaderBar />
+    <HeaderBar/>
 
     <main>
-      <router-view />
+      <router-view/>
     </main>
   </div>
 </template>
@@ -14,6 +14,19 @@
 
   export const SERVER = axios.create({
     baseURL: `http://localhost:8000/api`,
+    transformRequest: [
+      function (params) {
+        const serializedData = []
+
+        for (const param in params) {
+          if (params.hasOwnProperty(param) && params[param]) {
+            serializedData.push(`${param}=${encodeURIComponent(params[param])}`)
+          }
+        }
+
+        return serializedData.join('&')
+      }
+    ]
   })
 
   export default {

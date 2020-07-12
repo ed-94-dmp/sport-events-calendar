@@ -32,10 +32,14 @@ class Request
 
     public function getParams()
     {
-        if ($this->requestMethod === "GET") {
-            return array_filter($_GET, function ($value) {
-                return filter_var($value, FILTER_SANITIZE_STRING);
-            });
+        $params = $_GET;
+
+        if ($this->requestMethod === 'POST') {
+            $params = $_POST;
         }
+
+        return array_filter($params, function ($value) {
+            return filter_var($value, FILTER_SANITIZE_STRING);
+        });
     }
 }
