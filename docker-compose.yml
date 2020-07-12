@@ -48,13 +48,14 @@ services:
     container_name: mysql
     restart: unless-stopped
     environment:
-      - DB_DATABASE=calendar
-      - DB_ROOT_PASSWORD=root
-      - DB_USER=user
-      - DB_PASSWORD=user
+      - MYSQL_DATABASE=calendar
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=user
     ports:
       - "3306:3306"
     volumes:
+      - "./server/config/mysql/init-sql-scripts:/docker-entrypoint-initdb.d/:rw"
       - "./server/data/db/mysql:/var/lib/mysql"
 
   node:
