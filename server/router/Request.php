@@ -33,9 +33,9 @@ class Request
     public function getParams()
     {
         if ($this->requestMethod === "GET") {
-            return array_map(function($value) {
+            return array_filter($_GET, function ($value) {
                 return filter_var($value, FILTER_SANITIZE_STRING);
-            }, $_GET);
+            });
         }
     }
 }

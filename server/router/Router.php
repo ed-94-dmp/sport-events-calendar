@@ -41,6 +41,7 @@ class Router
         if ($result === '') {
             return '/';
         }
+
         return $result;
     }
 

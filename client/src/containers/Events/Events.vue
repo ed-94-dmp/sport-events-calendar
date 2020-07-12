@@ -1,11 +1,16 @@
 <template>
   <div class="container">
+    <Sports
+      @setSportId="setSportId"
+      :sportsList="sportsList"
+    />
+
     <Months
       @setMonth="setMonth"
       :currentMonth="month"
     />
 
-    <days
+    <Days
       @setDay="setDay"
       :daysInMonth="daysInMonth"
       :currentDay="day"
@@ -18,6 +23,10 @@
         There are no events on {{date}}.
       </Error>
     </div>
+
+    <Error v-if="error">
+      {{error.message}}
+    </Error>
 
     <Pagination
       v-if="eventsList.length"
@@ -32,29 +41,36 @@
   import {SERVER} from "../../App";
 
   import Months from "./components/Months";
-  import days from "./components/Days";
+  import Days from "./components/Days";
   import Event from "./components/Event";
   import Pagination from "../../components/Pagination";
   import Error from "../../components/Error";
+  import Sports from "./components/Sports";
 
   export default {
     name: 'events',
-    components: {Error, Pagination, Event, days, Months},
+    components: {Sports, Error, Pagination, Event, Days, Months},
     beforeMount() {
       this.initialiseDate();
     },
     mounted() {
-      this.getEvents(this.date);
+      this.getEvents();
+      this.getSports();
     },
     data() {
       return {
         day: null,
         month: null,
         year: null,
+        sportId: null,
 
         eventsList: [],
+        sportsList: [],
+
         totalPages: 0,
         currentPage: 1,
+
+        error: null,
       }
     },
     computed: {
@@ -64,27 +80,34 @@
       date: function () {
         return this.makeDateString(this.year, this.month, this.day);
       },
-      params: function () {
+      routeParams: function () {
         return {
           day: this.day,
           month: this.month,
           year: this.year,
         }
       },
+      apiParams: function () {
+        return {
+          date: this.date,
+          sportId: this.sportId,
+        }
+      },
     },
     watch: {
-      $route: function() {
-        this.getEvents(this.date, this.currentPage);
-      },
       date: function (date) {
         const {year, month, day} = this.$route.params;
 
         if (date !== [year, month, day].join('-')) {
           this.navigateToDate();
+          this.getEvents();
         }
       },
       currentPage: function () {
-        this.getEvents(this.date, this.currentPage);
+        this.getEvents();
+      },
+      sportId: function() {
+        this.getEvents();
       },
     },
     methods: {
@@ -129,17 +152,29 @@
       setCurrentPage(pageNumber) {
         this.currentPage = pageNumber;
       },
-      navigateToDate() {
-        this.$router.push({name: 'events', params: this.params})
+      setSportId(sportId) {
+        this.sportId = sportId;
       },
-      getEvents(date, page = 1) {
-        SERVER.get('/v1/events', {params: {date: date, page: page}})
+      navigateToDate() {
+        this.$router.push({name: 'events', params: this.routeParams})
+      },
+      getEvents() {
+        SERVER.get('/v1/events', {params: this.apiParams})
           .then((response) => {
             const {data: eventsList, last_page, current_page} = response.data
 
             this.eventsList = eventsList;
             this.totalPages = last_page;
             this.currentPage = current_page;
+          })
+          .catch((error) => this.error = error)
+      },
+      getSports() {
+        SERVER.get('/v1/sports')
+          .then((response) => {
+            const {data: sportsList} = response
+
+            this.sportsList = sportsList;
           })
           .catch((error) => this.error = error)
       },
@@ -151,6 +186,11 @@
   .container {
     display: grid;
     row-gap: 1rem;
+  }
+
+  .sports {
+    margin-left: auto;
+    min-width: 10rem;
   }
 
   .events-list {
