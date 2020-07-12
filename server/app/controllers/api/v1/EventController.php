@@ -55,6 +55,15 @@ class EventController
         $event->datetime = $params['datetime'];
         $event->save();
 
-        return $event;
+        return $event
+            ->load([
+                'competition',
+                'competitor1',
+                'competitor2',
+                'location',
+                'location.city',
+                'location.city.state.country',
+                'sport'
+            ]);
     }
 }

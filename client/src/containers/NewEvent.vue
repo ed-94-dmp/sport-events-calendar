@@ -63,6 +63,8 @@
     <Btn @clicked="saveEvent">Save</Btn>
 
     <Error v-if="error">{{error.message}}</Error>
+
+    <EventsList :events-list="newEventsList"/>
   </div>
 </template>
 
@@ -71,10 +73,11 @@
   import {SERVER} from "../App";
   import Btn from "../components/Btn";
   import Error from "../components/Error";
+  import EventsList from "./Events/components/EventsList";
 
   export default {
     name: 'index',
-    components: {Error, Btn, Events},
+    components: {EventsList, Error, Btn, Events},
     created() {
       this.getSports();
       this.getLocations();
@@ -95,6 +98,8 @@
         locationsList: [],
         competitionsList: [],
         competitorsList: [],
+
+        newEventsList: [],
 
         error: null,
       }
@@ -152,10 +157,21 @@
       saveEvent() {
         SERVER.post('/v1/events', this.params)
           .then((response) => {
-            console.log(response);
+            this.newEventsList.push(response.data);
+
+            this.resetForm();
           })
           .catch((error) => this.error = error);
-      }
+      },
+      resetForm() {
+        this.sportId = null;
+        this.locationId = null;
+        this.competitionId = null;
+        this.competitor1Id = null;
+        this.competitor2Id = null;
+        this.status = null;
+        this.datetime = null;
+      },
     }
   }
 </script>
@@ -179,5 +195,9 @@
 
   select, input {
     flex-grow: 1;
+  }
+
+  .events-list {
+    grid-column: 1 / -1;
   }
 </style>

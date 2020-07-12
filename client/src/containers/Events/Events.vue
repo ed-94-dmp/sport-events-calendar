@@ -16,13 +16,11 @@
       :currentDay="day"
     />
 
-    <div class="events-list">
-      <Event v-for="event in eventsList" :event="event"/>
+    <EventsList :events-list="eventsList" />
 
-      <Error v-if="!eventsList.length">
-        There are no events on {{date}}.
-      </Error>
-    </div>
+    <Error v-if="!eventsList.length">
+      There are no events on {{date}}.
+    </Error>
 
     <Error v-if="error">
       {{error.message}}
@@ -46,10 +44,11 @@
   import Pagination from "../../components/Pagination";
   import Error from "../../components/Error";
   import Sports from "./components/Sports";
+  import EventsList from "./components/EventsList";
 
   export default {
     name: 'events',
-    components: {Sports, Error, Pagination, Event, Days, Months},
+    components: {EventsList, Sports, Error, Pagination, Event, Days, Months},
     beforeMount() {
       this.initialiseDate();
     },
@@ -191,15 +190,5 @@
   .sports {
     margin-left: auto;
     min-width: 10rem;
-  }
-
-  .events-list {
-    display: grid;
-    grid-gap: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  }
-
-  .events-list .error {
-    grid-column: 1 / -1;
   }
 </style>
