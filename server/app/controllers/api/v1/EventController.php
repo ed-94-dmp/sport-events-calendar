@@ -15,7 +15,7 @@ class EventController
      */
     function index($request)
     {
-        $params = $request->getParams();
+        $params = $request->params;
 
         $date = $params['date'];
         $page = $params['page'] ?? 1;
@@ -42,7 +42,7 @@ class EventController
 
     function store($request)
     {
-        $params = $request->getParams();
+        $params = $request->params;
 
         $event = new Event;
         $event->id = Uuid::uuid4();

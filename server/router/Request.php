@@ -4,9 +4,12 @@ namespace Router;
 
 class Request
 {
+    public $params;
+
     function __construct()
     {
         $this->bootstrapSelf();
+        $this->getParams();
     }
 
     private function bootstrapSelf()
@@ -30,7 +33,7 @@ class Request
         return $result;
     }
 
-    public function getParams()
+    private function getParams()
     {
         $params = $_GET;
 
@@ -38,7 +41,7 @@ class Request
             $params = $_POST;
         }
 
-        return array_filter($params, function ($value) {
+        $this->params = array_filter($params, function ($value) {
             return filter_var($value, FILTER_SANITIZE_STRING);
         });
     }

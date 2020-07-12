@@ -84,11 +84,11 @@ class Router
             $this->badRequestHandler();
         }
 
-//        try {
+        try {
             echo call_user_func_array($method, [$this->request]);
-//        } catch (\Exception $e) {
-//            $this->defaultRequestHandler();
-//        }
+        } catch (\Exception $e) {
+            $this->defaultRequestHandler();
+        }
     }
 
     function __destruct()

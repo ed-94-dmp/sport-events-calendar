@@ -15,7 +15,7 @@ class IndexEventsValidator implements Validator
 
     public function __construct(Request $request)
     {
-        $this->params = $request->getParams();
+        $this->params = $request->params;
         $this->paramRules = array_merge(self::$basicParamRules, $this->paramRules);
     }
 
