@@ -15,11 +15,14 @@ class EventController {
 
         $date = $params['date'];
         $page = $params['page'] ?? 1;
+        $sportId = $params['sportId'];
 
-        $events = new Event();
-        return $events
+        return Event::with('competition', 'competitor1', 'competitor2', 'location', 'sport')
             ->when($date, function($query) use ($date) {
                 $query->whereDate('datetime', '=', $date);
+            })
+            ->when($sportId, function($query) use ($sportId) {
+                $query->whereDate('_sport_id', '=', $sportId);
             })
             ->paginate(10, ['*'], 'page', $page)
             ->toJson();
