@@ -16,5 +16,8 @@
             "Router\\": "router/",
             "Validator\\": "validator/"
         }
+    },
+    "scripts": {
+        "test": "./vendor/bin/phpunit tests"
     }
 }
