@@ -2,9 +2,11 @@
   <div class="card">
     <div class="thumbnail"></div>
     <div class="content">
-      <span class="title">Anadolu Efes - Zalgiris Kaunas</span>
-      <span class="subtitle">Euroleague</span>
-      {{event}}
+      <span class="title">{{event.competitor1.name}} - {{event.competitor2.name}}</span>
+      <span class="subtitle">{{event.competition.name}}</span>
+      <span class="details">
+        {{event.location.name}}, {{event.location.city.name}}, {{event.location.city.state.country.code}}
+      </span>
     </div>
   </div>
 </template>
@@ -43,6 +45,8 @@
 
   .card .content {
     padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
   }
 
   .card .title {
@@ -52,7 +56,9 @@
 
   .card .subtitle {
     font-size: 1rem;
-    color: var(--color-gainsboro);
-    margin-left: auto;
+  }
+
+  .card .details {
+    font-size: 0.8rem;
   }
 </style>
