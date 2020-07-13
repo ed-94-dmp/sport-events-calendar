@@ -11,6 +11,13 @@ cd client
 yarn install OR npm install
 ```
 
+- Copy environment file from example
+```
+cd .. && cd server
+
+cp .env.example .env
+```
+
 - Composer dependencies will be automatically installed.
 
 - To start docker containers run the command below.
