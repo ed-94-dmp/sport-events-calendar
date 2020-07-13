@@ -1,5 +1,8 @@
 ## Sport Events Calendar
 
+### Entity relationship diagram
+Find it [here](https://github.com/ed-94-dmp/sport-events-calendar/blob/master/storage/ERD.png).
+
 ### Getting started
 - Install frontend dependencies with the commands below.
 ```
